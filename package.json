@@ -1,0 +1,33 @@
+{
+  "name": "quote-factory",
+  "version": "0.1.0",
+  "description": "A minimal app for getting your dose of inspirational quotes.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "build": {
+    "appId": "com.robinmitra.quote-factory",
+    "productName": "Quote Factory",
+    "mac": {
+      "category": "public.app-category.lifestyle"
+    }
+  },
+  "repository": "https://github.com/robinmitra/quote-factory",
+  "keywords": [
+    "Electron",
+    "Quotes"
+  ],
+  "author": "Robin Mitra <robinmitra1@gmail.com>",
+  "license": "GPLv3",
+  "devDependencies": {
+    "electron": "~1.7.8",
+    "electron-builder": "^19.37.2"
+  },
+  "dependencies": {
+    "axios": "^0.16.2",
+    "electron-store": "^1.3.0"
+  }
+}
