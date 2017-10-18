@@ -14,11 +14,12 @@ let intervalId;
 
 const showQuote = () => {
   const { quote, author } = quoteService.getRandom();
-  (new Notification({ title: author, body: quote })).show();
+  (new Notification({ title: author, body: quote, silent: store.get('silent') })).show();
 };
 
 const getInterval = () => Number(store.get('interval'));
 const isEnabled = () => store.get('enabled');
+const isSilent = () => store.get('silent');
 
 const scheduleQuote = interval => {
   console.log(`Interval in ${interval} minutes`);
@@ -38,6 +39,7 @@ const initialise = () => quoteService
   .initialise()
   .then(() => {
     if (!getInterval()) store.set('interval', 1);
+    if (!store.has('silent')) store.set('silent', true);
     if (isEnabled()) showQuote();
     updateSchedule();
   });
@@ -47,44 +49,39 @@ const toggleEnabled = menuItem => {
   updateSchedule();
 };
 
-const updateInterval = menuItem => {
-  let interval;
-  switch (menuItem.id) {
+const toggleSilent = menuItem => {
+  store.set('silent', menuItem.checked);
+  updateSchedule();
+};
+
+const getIntervalByMenuId = (intervalKey) => {
+  switch (intervalKey) {
     case 1:
-      interval = 1;
-      break;
+      return 1;
     case 2:
-      interval = 5;
-      break;
+      return 5;
     case 3:
-      interval = 10;
-      break;
+      return 10;
     default:
-      interval = 1;
-      break;
+      return 1;
   }
-  store.set('interval', interval);
+};
+
+const updateInterval = menuItem => {
+  store.set('interval', getIntervalByMenuId(menuItem.id));
   updateSchedule();
 };
 
 const isChecked = index => {
   const interval = getInterval();
-  switch (true) {
-    case (index === 1 && interval === 1):
-      return true;
-    case (index === 2 && interval === 5):
-      return true;
-    case (index === 3 && interval === 10):
-      return true;
-    default:
-      return false;
-  }
+  const intervalByMenuId = getIntervalByMenuId(index);
+  return interval === intervalByMenuId;
 };
 
 const createTray = () => {
   return initialise()
     .then(() => {
-      tray = new Tray('./icon.png');
+      tray = new Tray(`${__dirname}/icon.png`);
       const contextMenu = Menu.buildFromTemplate([
         { label: 'Enabled', type: 'checkbox', click: toggleEnabled, checked: isEnabled() },
         {
@@ -95,6 +92,7 @@ const createTray = () => {
             { id: 3, label: '10 min', type: 'radio', click: updateInterval, checked: isChecked(3) },
           ],
         },
+        { label: 'Silent', type: 'checkbox', click: toggleSilent, checked: isSilent() },
         { label: 'Quit', role: 'quit' },
       ]);
       tray.setToolTip('Quote Factory - Your daily dose of inspiration quotes');
