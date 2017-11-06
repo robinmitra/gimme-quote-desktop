@@ -1,3 +1,5 @@
+const { MenuItem } = require('electron');
+
 const store = require('../../store');
 
 const getIntervalByMenuId = (intervalKey) => {
@@ -20,13 +22,11 @@ const updateInterval = menuItem => store.dispatch({
 
 const isChecked = index => store.getState().interval === getIntervalByMenuId(index);
 
-exports.getMenu = () => ([
-  {
-    label: 'Interval',
-    submenu: [
-      { id: 1, label: '1 min', type: 'radio', click: updateInterval, checked: isChecked(1) },
-      { id: 2, label: '5 min', type: 'radio', click: updateInterval, checked: isChecked(2) },
-      { id: 3, label: '10 min', type: 'radio', click: updateInterval, checked: isChecked(3) },
-    ],
-  }
-]);
+exports.getMenu = () => new MenuItem({
+  label: 'Interval',
+  submenu: [
+    { id: 1, label: '1 min', type: 'radio', click: updateInterval, checked: isChecked(1) },
+    { id: 2, label: '5 min', type: 'radio', click: updateInterval, checked: isChecked(2) },
+    { id: 3, label: '10 min', type: 'radio', click: updateInterval, checked: isChecked(3) },
+  ],
+});

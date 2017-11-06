@@ -9,6 +9,7 @@ const enabled = require('./components/enabled');
 const silent = require('./components/silent');
 const interval = require('./components/interval');
 const category = require('./components/category');
+const quit = require('./components/quit');
 
 let intervalId;
 const clearSchedule = () => clearInterval(intervalId);
@@ -52,11 +53,11 @@ exports.initialise = () => {
 };
 
 exports.getContextMenu = () => {
-  return Menu.buildFromTemplate([
-    ...enabled.getMenu(),
-    ...silent.getMenu(),
-    ...interval.getMenu(),
-    ...category.getMenu(),
-    { label: 'Quit', role: 'quit' },
-  ]);
+  const menu = new Menu();
+  menu.append(enabled.getMenu());
+  menu.append(silent.getMenu());
+  menu.append(interval.getMenu());
+  menu.append(category.getMenu());
+  menu.append(quit.getMenu());
+  return menu;
 };

@@ -1,54 +1,55 @@
 const _ = require('lodash');
+const { MenuItem } = require('electron');
+
 const quoteService = require('../../quoteService');
 const logger = require('../../logger');
 const store = require('../../store');
 
-const getCategoryByMenuId = (categoryKey) => {
-  switch (categoryKey) {
-    case 1:
-      return 'inspiration';
-    case 2:
-      return 'movie';
-    case 3:
-      return 'programming';
-    case 4:
-      return 'all';
-    // default:
-    //   return 'all';
-  }
-};
+const isChecked = key => store.getState().category.includes(key);
 
-const isChecked = index => store.getState().category.includes(getCategoryByMenuId(index));
+const getSelectedCategories = () => menuItem.submenu.items.filter(item => item.checked).map(item => item.label.toLowerCase());
 
-const updateCategory = menuItem => {
-  logger.info(`Clicked category with key ${menuItem.id}`);
+const selectAll = () => menuItem.submenu.items.forEach(item => item.checked = item.label.toLowerCase() === 'all');
+
+const deselectAll = () => menuItem.submenu.items.find(item => item.label.toLowerCase() === 'all').checked = false;
+
+const updateCategory = clickedMenuItem => {
+  logger.log(`Clicked menu item ${clickedMenuItem.label}`);
   quoteService.reset();
-  const clickedCategory = getCategoryByMenuId(menuItem.id);
-  const existingActiveCategories = store.getState().category;
-  let updatedActiveCategories;
-  if (clickedCategory === 'all') {
-    updatedActiveCategories = [clickedCategory];
-  } else {
-    if (!menuItem.checked) {
-      // Filter out de-activated category.
-      updatedActiveCategories = existingActiveCategories.filter(category => category !== clickedCategory);
-    } else {
-      // Activate selected category.
-      updatedActiveCategories = [...existingActiveCategories, clickedCategory];
-    }
-    updatedActiveCategories = _.uniq(updatedActiveCategories);
-  }
-  store.dispatch({ type: 'UPDATE_CATEGORY', category: updatedActiveCategories });
+  const selectedCategories = getSelectedCategories();
+  if (!selectedCategories.length || clickedMenuItem.label.toLowerCase() === 'all') selectAll();
+  else deselectAll();
+  const updatedSelectedCategories = getSelectedCategories();
+  logger.info(`Updated selected categories: ${updatedSelectedCategories}`);
+  store.dispatch({ type: 'UPDATE_CATEGORY', category: updatedSelectedCategories });
 };
 
-exports.getMenu = () => ([
-  {
-    label: 'Category',
-    submenu: [
-      { id: 1, label: 'Inspiration', type: 'checkbox', click: updateCategory, checked: isChecked(1) },
-      { id: 2, label: 'Movies', type: 'checkbox', click: updateCategory, checked: isChecked(2) },
-      { id: 3, label: 'Programming', type: 'checkbox', click: updateCategory, checked: isChecked(3) },
-      { id: 4, label: 'All', type: 'checkbox', click: updateCategory, checked: isChecked(4) },
-    ],
-  }
-]);
+const menuItem = new MenuItem({
+  label: 'Category',
+  submenu: [
+    {
+      id: 'inspiration',
+      label: 'Inspiration',
+      type: 'checkbox',
+      click: updateCategory,
+      checked: isChecked('inspiration')
+    },
+    {
+      id: 'movies',
+      label: 'Movies',
+      type: 'checkbox',
+      click: updateCategory,
+      checked: isChecked('movies')
+    },
+    {
+      id: 'programming',
+      label: 'Programming',
+      type: 'checkbox',
+      click: updateCategory,
+      checked: isChecked('programming')
+    },
+    { id: 'all', label: 'All', type: 'checkbox', click: updateCategory, checked: isChecked('all') },
+  ],
+});
+
+exports.getMenu = () => menuItem;
