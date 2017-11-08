@@ -1,4 +1,4 @@
-const { Menu, Notification } = require('electron');
+const { app, Menu, Notification } = require('electron');
 const _ = require('lodash');
 
 const quoteService = require('../quoteService');
@@ -9,6 +9,7 @@ const enabled = require('./components/enabled');
 const silent = require('./components/silent');
 const interval = require('./components/interval');
 const category = require('./components/category');
+const openAtLogin = require('./components/openAtLogin');
 const quit = require('./components/quit');
 
 let intervalId;
@@ -40,15 +41,13 @@ const updateSchedule = () => {
   } else clearSchedule();
 };
 
+const updateLoginItemSettings = () => {
+  app.setLoginItemSettings({ openAtLogin: store.getState().openAtLogin });
+};
+
 exports.initialise = () => {
-  const state = store.getState();
-
-  if (!state.interval) store.dispatch({ type: 'UPDATE_INTERVAL', interval: 1 });
-  if (typeof state.silent !== 'boolean') store.dispatch({ type: 'TOGGLE_SILENT' });
-  if (!state.category) store.dispatch({ type: 'UPDATE_CATEGORY', category: ['inspiration'] });
-  // if (state.enabled) showQuote();
-
   store.subscribe(updateSchedule);
+  store.subscribe(updateLoginItemSettings);
   updateSchedule();
 };
 
@@ -58,6 +57,7 @@ exports.getContextMenu = () => {
   menu.append(silent.getMenu());
   menu.append(interval.getMenu());
   menu.append(category.getMenu());
+  menu.append(openAtLogin.getMenu());
   menu.append(quit.getMenu());
   return menu;
 };
