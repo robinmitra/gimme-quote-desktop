@@ -1,6 +1,7 @@
 const { MenuItem } = require('electron');
 
 const store = require('../../store');
+const actions = require('../../actions');
 
 const getIntervalByMenuId = (intervalKey) => {
   switch (intervalKey) {
@@ -15,10 +16,7 @@ const getIntervalByMenuId = (intervalKey) => {
   }
 };
 
-const updateInterval = menuItem => store.dispatch({
-  type: 'UPDATE_INTERVAL',
-  interval: getIntervalByMenuId(menuItem.id),
-});
+const updateInterval = menuItem => store.dispatch(actions.updateInterval(getIntervalByMenuId(menuItem.id)));
 
 const isChecked = index => store.getState().interval === getIntervalByMenuId(index);
 

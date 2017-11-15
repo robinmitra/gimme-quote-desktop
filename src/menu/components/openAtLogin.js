@@ -1,10 +1,11 @@
 const { MenuItem } = require('electron');
 
 const store = require('../../store');
+const actions = require('../../actions');
 
 exports.getMenu = () => new MenuItem({
   label: 'Launch on system startup',
   type: 'checkbox',
-  click: () => store.dispatch({ type: 'TOGGLE_OPEN_AT_LOGIN' }),
+  click: () => store.dispatch(actions.toggleOpenAtLogin()),
   checked: store.getState().openAtLogin
 });

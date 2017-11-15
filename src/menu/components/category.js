@@ -4,6 +4,7 @@ const { MenuItem } = require('electron');
 const quoteService = require('../../quoteService');
 const logger = require('../../logger');
 const store = require('../../store');
+const actions = require('../../actions');
 
 const isChecked = key => store.getState().category.includes(key);
 
@@ -21,7 +22,7 @@ const updateCategory = clickedMenuItem => {
   else deselectAll();
   const updatedSelectedCategories = getSelectedCategories();
   logger.info(`Updated selected categories: ${updatedSelectedCategories}`);
-  store.dispatch({ type: 'UPDATE_CATEGORY', category: updatedSelectedCategories });
+  store.dispatch(actions.updateCategory(updatedSelectedCategories));
 };
 
 const menuItem = new MenuItem({
