@@ -13,8 +13,8 @@ const initialise = () => quoteService.initialise().then(menu.initialise);
 const createTray = () => {
   return initialise()
     .then(() => {
-      tray = new Tray(`${__dirname}/icon.png`);
-      tray.setToolTip('Quote Factory - Your daily dose of inspiration quotes');
+      tray = new Tray(`${__dirname}/resources/icon/icon.png`);
+      tray.setToolTip('Gimme Quote - get your daily dose of famous quotes');
       tray.setContextMenu(menu.getContextMenu());
     })
     .catch((err) => {
