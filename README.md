@@ -4,6 +4,10 @@
 
 A minimal Electron app for getting your dose of inspirational quotes.
 
+# Installation
+
+Download the latest release from [here](https://github.com/robinmitra/gimme-quote/releases/latest).
+
 # Development
 
 Start the app locally by running `npm start`.
