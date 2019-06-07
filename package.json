@@ -1,12 +1,13 @@
 {
   "name": "quote-factory",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A minimal app for getting your dose of famous quotes.",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder"
+    "dist": "electron-builder",
+    "release": "build"
   },
   "build": {
     "appId": "com.robinmitra.gimme-quote",
