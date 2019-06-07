@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/robinmitra/gimme-quote.svg?branch=master)](https://travis-ci.com/robinmitra/gimme-quote)
+
 # Introduction
 
 A minimal Electron app for getting your dose of inspirational quotes.
