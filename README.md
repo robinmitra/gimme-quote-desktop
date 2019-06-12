@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/robinmitra/gimme-quote.svg?branch=master)](https://travis-ci.com/robinmitra/gimme-quote)
+[![Build Status](https://travis-ci.com/robinmitra/gimme-quote-desktop.svg?branch=master)](https://travis-ci.com/robinmitra/gimme-quote-desktop)
 
 # Introduction
 
@@ -6,7 +6,7 @@ A minimal Electron app for getting your dose of inspirational quotes.
 
 # Installation
 
-Download the latest release from [here](https://github.com/robinmitra/gimme-quote/releases/latest).
+Download the latest release from [here](https://github.com/robinmitra/gimme-quote-desktop/releases/latest).
 
 # Development
 

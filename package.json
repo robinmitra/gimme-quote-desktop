@@ -10,13 +10,13 @@
     "release": "build"
   },
   "build": {
-    "appId": "com.robinmitra.gimme-quote",
+    "appId": "com.robinmitra.gimme-quote-desktop",
     "productName": "Gimme Quote",
     "mac": {
       "category": "public.app-category.lifestyle"
     }
   },
-  "repository": "https://github.com/robinmitra/gimme-quote",
+  "repository": "https://github.com/robinmitra/gimme-quote-desktop",
   "keywords": [
     "Electron",
     "Quotes"
