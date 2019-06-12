@@ -12,7 +12,7 @@ let remainingQuotes = [];
 let reset = false;
 
 exports.initialise = () => axios
-  .get('https://gimme-quote.appspot.com/')
+  .get('https://gimme-quote.robinmitra.now.sh/')
   .then(res => {
     quotes = res.data
       .filter(({ quote }) => quote.length < 100)
