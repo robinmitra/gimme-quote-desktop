@@ -1,7 +1,7 @@
 {
-  "name": "quote-factory",
-  "version": "0.2.0",
-  "description": "A minimal app for getting your dose of famous quotes.",
+  "name": "gimme-quote",
+  "version": "0.2.1",
+  "description": "A minimal desktop app for getting your dose of famous quotes.",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
