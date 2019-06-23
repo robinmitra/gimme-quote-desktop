@@ -47,7 +47,7 @@ const interval = (state, action) => {
 };
 
 const category = (state, action) => {
-  if (!settings.has('category')) settings.set('category', ['inspiration']);
+  if (!settings.has('category')) settings.set('category', ['inspirational']);
   let category = settings.get('category');
   if (action.type === 'UPDATE_CATEGORY') {
     logger.info('Updating category -', 'current state:', state, 'action:', action);
