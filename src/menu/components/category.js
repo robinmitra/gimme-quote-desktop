@@ -29,11 +29,11 @@ const menuItem = new MenuItem({
   label: 'Category',
   submenu: [
     {
-      id: 'inspiration',
-      label: 'Inspiration',
+      id: 'inspirational',
+      label: 'Inspirational',
       type: 'checkbox',
       click: updateCategory,
-      checked: isChecked('inspiration')
+      checked: isChecked('inspirational')
     },
     {
       id: 'movies',
