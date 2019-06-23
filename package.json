@@ -1,6 +1,6 @@
 {
   "name": "gimme-quote",
-  "version": "0.2.4",
+  "version": "0.3.0",
   "description": "A minimal desktop app for getting your dose of famous quotes.",
   "main": "main.js",
   "scripts": {
@@ -13,7 +13,8 @@
     "appId": "com.robinmitra.gimme-quote-desktop",
     "productName": "Gimme Quote",
     "mac": {
-      "category": "public.app-category.lifestyle"
+      "category": "public.app-category.lifestyle",
+      "darkModeSupport": true
     }
   },
   "repository": "https://github.com/robinmitra/gimme-quote-desktop",
