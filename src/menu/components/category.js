@@ -36,11 +36,11 @@ const menuItem = new MenuItem({
       checked: isChecked('inspirational')
     },
     {
-      id: 'movies',
-      label: 'Movies',
+      id: 'movie',
+      label: 'Movie',
       type: 'checkbox',
       click: updateCategory,
-      checked: isChecked('movies')
+      checked: isChecked('movie')
     },
     {
       id: 'programming',
