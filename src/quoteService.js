@@ -36,7 +36,7 @@ exports.getRandom = categories => {
   }
   logger.log('Remaining quotes', remainingQuotes);
   const randomIndex = Math.floor(Math.random() * (remainingQuotes.length - 1));
-  const randomQuote = remainingQuotes[randomIndex];
+  const randomQuote = remainingQuotes[randomIndex] ? remainingQuotes[randomIndex] : {};
   remainingQuotes.splice(randomIndex, 1);
   logger.info('Returning random quote', randomQuote);
   return randomQuote;

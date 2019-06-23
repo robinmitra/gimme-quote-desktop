@@ -17,11 +17,12 @@ const clearSchedule = () => clearInterval(intervalId);
 
 const showQuote = () => {
   const { quote, author, year } = quoteService.getRandom(store.getState().category);
+  if (!quote) return;
   (new Notification({
     title: author,
     body: quote,
     subtitle: year,
-    silent: store.getState().silent
+    silent: store.getState().silent,
   })).show();
 };
 
