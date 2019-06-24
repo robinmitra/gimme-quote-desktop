@@ -1,3 +1,4 @@
+const electron = require('electron');
 const { app, Menu, Notification } = require('electron');
 const _ = require('lodash');
 
@@ -13,7 +14,10 @@ const openAtLogin = require('./components/openAtLogin');
 const quit = require('./components/quit');
 
 let intervalId;
-const clearSchedule = () => clearInterval(intervalId);
+const clearSchedule = () => {
+  logger.info('Clearing schedule');
+  clearInterval(intervalId);
+};
 
 const showQuote = () => {
   const { quote, author, year } = quoteService.getRandom(store.getState().category);
@@ -34,7 +38,7 @@ const scheduleQuote = interval => {
 const updateSchedule = () => {
   logger.info('Updating schedule');
   const state = store.getState();
-  logger.info('Current state:', state);
+  logger.log('Current state:', state);
   if (state.enabled && state.interval) {
     if (intervalId) clearInterval(intervalId);
     scheduleQuote(state.interval);
@@ -49,6 +53,8 @@ const updateLoginItemSettings = () => {
 const setupListeners = () => {
   store.subscribe(updateSchedule);
   store.subscribe(updateLoginItemSettings);
+  electron.powerMonitor.on('lock-screen', clearSchedule);
+  electron.powerMonitor.on('unlock-screen', updateSchedule);
 };
 
 exports.initialise = () => {
