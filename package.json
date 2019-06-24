@@ -1,6 +1,6 @@
 {
   "name": "gimme-quote",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "A minimal desktop app for getting your dose of famous quotes.",
   "main": "main.js",
   "scripts": {
