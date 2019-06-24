@@ -1,9 +1,9 @@
 const { app, Menu, Notification } = require('electron');
 const _ = require('lodash');
 
-const quoteService = require('../quoteService');
-const logger = require('../logger');
-const store = require('../store');
+const quoteService = require('../common/quoteService');
+const logger = require('../common/logger');
+const store = require('./store');
 
 const enabled = require('./components/enabled');
 const silent = require('./components/silent');
@@ -46,9 +46,13 @@ const updateLoginItemSettings = () => {
   app.setLoginItemSettings({ openAtLogin: store.getState().openAtLogin });
 };
 
-exports.initialise = () => {
+const setupListeners = () => {
   store.subscribe(updateSchedule);
   store.subscribe(updateLoginItemSettings);
+};
+
+exports.initialise = () => {
+  setupListeners();
   updateSchedule();
 };
 

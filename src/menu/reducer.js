@@ -1,7 +1,7 @@
 const redux = require('redux');
 
-const logger = require('./logger');
-const settings = require('./settings');
+const logger = require('../common/logger');
+const settings = require('../common/settings');
 
 const enabled = (state, action) => {
   if (!settings.has('enabled')) settings.set('enabled', true);
