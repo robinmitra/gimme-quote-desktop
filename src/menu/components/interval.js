@@ -1,7 +1,7 @@
 const { MenuItem } = require('electron');
 
-const store = require('../../store');
-const actions = require('../../actions');
+const store = require('../store');
+const actions = require('../actions');
 
 const getIntervalByMenuId = (intervalKey) => {
   switch (intervalKey) {

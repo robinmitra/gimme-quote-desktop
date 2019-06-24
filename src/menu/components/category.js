@@ -1,10 +1,10 @@
 const _ = require('lodash');
 const { MenuItem } = require('electron');
 
-const quoteService = require('../../quoteService');
-const logger = require('../../logger');
-const store = require('../../store');
-const actions = require('../../actions');
+const quoteService = require('../../common/quoteService');
+const logger = require('../../common/logger');
+const store = require('../store');
+const actions = require('../actions');
 
 const isChecked = key => store.getState().category.includes(key);
 
